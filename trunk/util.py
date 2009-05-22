@@ -7,7 +7,6 @@ wouldn't be duplicated.
 
 """
 import os
-from os.path import isdir, join, isfile
 
 
 def check_trailing_slash(environ, start_response):
@@ -19,7 +18,7 @@ def check_trailing_slash(environ, start_response):
     """
     fs = environ['PATH_TRANSLATED']
     url = environ['PATH_INFO']
-    if isdir(fs) and not url.endswith('/'):
+    if os.path.isdir(fs) and not url.endswith('/'):
         environ['PATH_INFO'] += '/'
         new_url = full_url(environ)
         start_response( '301 Moved Permanently'
@@ -35,11 +34,11 @@ def find_default(defaults, fspath):
     is found.
 
     """
-    if isdir(fspath):
+    if os.path.isdir(fspath):
         default = None
         for name in defaults:
-            _path = join(fspath, name)
-            if isfile(_path):
+            _path = os.path.join(fspath, name)
+            if os.path.isfile(_path):
                 default = _path
                 break
         if default is not None:
