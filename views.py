@@ -251,10 +251,20 @@ def direct_to_simplate(request, *args, **params):
     # 1. Translate to filesystem
     # ==========================
 
-    path_info = request.environ['PATH_INFO']
+    if 'simplate' in params:
+        simplate_path = params['simplate']
+        del params['simplate']
+        def compute_fspath(root):
+            return os.path.join(root, *simplate_path.split('/'))
+    else:
+        path_info = request.environ['PATH_INFO']
+        def compute_fspath(root):
+            fspath = util.translate(root, path_info)
+            fspath = util.find_default(settings.SIMPLATE_DEFAULTS, fspath)
+            return fspath
+
     for root in settings.SIMPLATE_DIRS:
-        fspath = util.translate(root, path_info)
-        fspath = util.find_default(settings.SIMPLATE_DEFAULTS, fspath)
+        fspath = compute_fspath(root)
         if os.path.isfile(fspath):
             break
     assert os.path.isfile(fspath), "No default simplate found in %s." % fspath
