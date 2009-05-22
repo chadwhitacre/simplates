@@ -248,12 +248,11 @@ def direct_to_simplate(request, *args, **params):
 
     """
 
-    # 1. Check for file
-    # =================
+    # 1. Translate to filesystem
+    # ==========================
 
-    # @@: need to implement defaults and path translation
     path_info = request.environ['PATH_INFO']
-    for root in settings.SIMPLATES_PATH:
+    for root in settings.SIMPLATES_DIRS:
         fspath = util.translate(root, path_info)
         fspath = util.find_default(settings.SIMPLATES_DEFAULTS, fspath)
         if os.path.isfile(fspath):
