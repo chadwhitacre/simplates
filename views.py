@@ -252,10 +252,10 @@ def direct_to_simplate(request, *args, **params):
     # ==========================
 
     if 'simplate' in params:
-        simplate_path = params['simplate']
+        simplate_path = os.path.join(*params['simplate'].split('/'))
         del params['simplate']
         def compute_fspath(root):
-            return os.path.join(root, *simplate_path.split('/'))
+            return os.path.join(root, simplate_path)
     else:
         path_info = request.environ['PATH_INFO']
         def compute_fspath(root):
