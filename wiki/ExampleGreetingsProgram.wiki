@@ -26,7 +26,7 @@ urlpatterns = patterns('',
 }}}
 
 
-* Simplate:
+* Simplate at /path/to/simplates/index.html:
 
 {{{
 # Import section
