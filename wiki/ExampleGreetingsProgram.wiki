@@ -44,6 +44,6 @@ except KeyError:
 
  # ASCII form feed
 
-<!-- Django Template -->
+<!-- Django Template Section-->
 <p>Greetings {{program}}!!</p>
 }}}
