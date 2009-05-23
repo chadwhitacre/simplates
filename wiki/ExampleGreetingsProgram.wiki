@@ -1,0 +1,28 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+{{{
+# Import section
+# ==============
+
+ # ASCII form feed (this character is also called a page break, FF, <ctrl>-L, 0xc, 12).
+
+# Python runtime section
+# ======================
+
+try:
+    program = params['program']
+except KeyError:
+    program = 'World'
+
+ # ASCII form feed
+
+<!-- Django Template -->
+<p>Greetings {{program}}!!</p>
+}}}
