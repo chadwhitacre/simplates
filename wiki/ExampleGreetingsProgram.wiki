@@ -1,11 +1,25 @@
-#summary One-sentence summary of this page.
+#Greetings program simplates example
 
 = Introduction =
 
-Add your content here.
+
 
 
 = Details =
+@ urls.py
+
+{{{
+
+from django.conf.urls.defaults import *
+from project.simplates.views import direct_to_simplate
+urlpatterns = patterns('',
+    (r'^greetings/(?P<program>[^/]+)/$', direct_to_simplate, {'simplate':'index.html'}),
+)
+
+}}}
+
+
+@ Simplate:
 
 {{{
 # Import section
