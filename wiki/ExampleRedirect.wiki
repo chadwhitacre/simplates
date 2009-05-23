@@ -1,0 +1,48 @@
+#Redirect simplates example
+
+= Introduction =
+
+
+
+
+= Details =
+* settings.py
+
+{{{
+SIMPLATE_DIRS = (
+     '/path/to/simplates',
+)
+}}}
+* urls.py
+
+{{{
+
+from django.conf.urls.defaults import *
+from project.simplates.views import direct_to_simplate
+urlpatterns = patterns('',
+    (r'^$', direct_to_simplate),
+)
+
+}}}
+
+
+* Simplate at /path/to/simplates/index.html:
+
+{{{
+# Import section
+# ==============
+from django.http import HttpResponseRedirect
+
+ # ASCII form feed (this character is also called a page break, FF, <ctrl>-L, 0xc, 12).
+
+# Python runtime section
+# ======================
+
+if request.user.is_anonymous():
+    raise SystemExit(HttpResponseRedirect('/login/'))
+
+ # ASCII form feed
+
+<!-- Django Template Section-->
+<p>You must be authenticated to view this.</p>
+}}}
