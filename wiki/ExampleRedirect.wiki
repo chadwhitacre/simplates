@@ -23,16 +23,23 @@ urlpatterns = patterns('',
 * Simplate at /path/to/simplates/index.html:
 
 {{{
+"""First section: Python imports (exec'd at startup)
+"""
 from django.http import HttpResponseRedirect
 
 
 #<!--===BREAK===-->
+"""Second section: Python view code (exec'd on every request)
+"""
 
 if request.user.is_anonymous():
     raise SystemExit(HttpResponseRedirect('/login/'))
 
 
 #<!--===BREAK===-->
+{% comment %}
+Third section: Django template (context is namespace from first two sections)
+{% endcomment %}
 
 <p>You must be authenticated to view this.</p>
 }}}
