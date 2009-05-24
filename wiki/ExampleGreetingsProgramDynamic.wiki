@@ -1,0 +1,62 @@
+=Example: Greetings, program! (Dynamic)=
+
+* settings.py
+
+{{{
+SIMPLATE_DIRS = (
+     '/path/to/simplates',
+)
+SIMPLATE_DEFAULTS = ('index.html',)
+}}}
+
+
+* urls.py
+
+We want these:
+
+{{{
+http://www.example.com/greetings/python/
+http://www.example.com/greetings/django/
+http://www.example.com/greetings/perl/
+}}}
+
+To all be served by:
+
+{{{
+/path/to/simplates/greetings/program.html
+}}}
+
+{{{
+
+from django.conf.urls.defaults import *
+from simplates.views import direct_to_simplate
+
+
+urlpatterns = patterns('',
+    ( r'^greetings/(?P<program>[^/]+)/$'
+    , direct_to_simplate)
+    , {'simplate':'greetings/program.html'}
+     )
+)
+
+}}}
+
+
+* Simplate at /path/to/simplates/greetings/program.html:
+
+{{{
+"""Python runtime section (think of this as view code)
+"""
+
+try:
+    program = params['program'] # this comes from the URL per urls.py
+except KeyError:
+    program = 'program'
+
+#<!--===BREAK===-->
+{% comment %}
+Django template section (context is namespace from first two sections)
+{% endcomment %}
+
+<p>Greetings, {{ program }}!</p>
+}}}
