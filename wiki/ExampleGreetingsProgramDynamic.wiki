@@ -29,7 +29,6 @@ Greetings, Perl!
 SIMPLATE_DIRS = (
      '/path/to/simplates',
 )
-SIMPLATE_DEFAULTS = ('index.html',)
 }}}
 
 
