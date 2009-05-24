@@ -41,7 +41,7 @@ urlpatterns = patterns('',
 
 === simplate at /path/to/simplates/contact.html ===
 
-By now, you should know that a simplate has up to three sections, separated by this line:
+By now, you should know that a simplate has [EgRedirect up to three sections], separated by this line:
 
 {{{
 #<!--===BREAK===-->
