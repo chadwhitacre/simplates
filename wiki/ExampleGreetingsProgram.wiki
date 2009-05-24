@@ -1,6 +1,10 @@
 =Example: Greetings, program!=
 
-This is the simplest example.
+This is the simplest example. We just want our homepage to show:
+
+{{{
+Greetings, program!
+}}}
 
 
 === settings.py ===
@@ -32,11 +36,4 @@ This is just a straight Django template. You might as well have used `direct_to_
 
 {{{
 <p>Greetings, program!</p>
-}}}
-
-
-=== result at http://www.example.com/ ===
-
-{{{
-Greetings, program!
 }}}
