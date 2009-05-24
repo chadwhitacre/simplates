@@ -1,0 +1,82 @@
+=Example 5: Generating an Image Dynamically=
+
+In this example we show two things:
+
+  # using the querystring
+  # fully customizing the `response` object
+
+We are going to have URLs of the form:
+
+{{{
+http://www.example.com/heading?text=My%20Heading
+}}}
+
+We assume that the [http://www.pythonware.com/products/pil/ Python Imaging Library (PIL)] is installed.
+
+
+=== settings.py ===
+
+{{{
+SIMPLATE_DIRS = (
+    '/path/to/simplates',
+)
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.request'
+)
+}}}
+
+As [EgFormProcessing before], we need to install the `request` context processor in order to use API on Django's `request` object. In this case, we want to use `request.GET`.
+
+
+=== urls.py ===
+
+{{{
+from django.conf.urls.defaults import *
+from simplates.views import direct_to_simplate
+
+
+urlpatterns = patterns('',
+    (r'^header.html$', direct_to_simplate),
+)
+}}}
+
+
+=== simplate at /path/to/simplates/contact.html ===
+
+By now, you should know that a simplate has [EgRedirect up to three sections], separated by this line:
+
+{{{
+#<!--===BREAK===-->
+}}}
+
+The sections are:
+
+  # *import*--Python, run once
+  # *view*--Python, run every request
+  # *template*--Django template
+
+Here is the content of our simplate for this example:
+
+{{{
+from django.forms import *
+
+#@: BUILD FORM HERE
+
+
+#<!--===BREAK===-->
+
+#@: PROCESS FORM HERE
+
+
+#<!--===BREAK===-->
+<form action="{{ request.META.PATH_INFO }}" method="POST">
+{{ myform }}
+</form>
+}}}
+
+
+== Next Example: [EgImageGeneration Generating an Image Dynamically] ==
