@@ -39,4 +39,4 @@ This is just a straight Django template. We might as well have used `direct_to_t
 }}}
 
 
-== Next Example: Greetings, program! (Dynamic) ==
+== Next Example: [EgGreetingsProgramDynamic Greetings, program! (Dynamic)] ==
