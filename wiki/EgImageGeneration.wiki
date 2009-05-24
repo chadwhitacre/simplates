@@ -5,13 +5,13 @@ In this example we show two things:
   # using the querystring
   # fully customizing the `response` object
 
-We are going to have URLs of the form:
+We are going to dynamically serve header images as GIF files from URLs of the form:
 
 {{{
-http://www.example.com/heading?text=My%20Heading
+http://www.example.com/heading.gif?text=My%20Heading
 }}}
 
-We assume that the [http://www.pythonware.com/products/pil/ Python Imaging Library (PIL)] is installed.
+We will assume that the [http://www.pythonware.com/products/pil/ Python Imaging Library (PIL)] is installed.
 
 
 === settings.py ===
@@ -29,7 +29,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 }}}
 
-As [EgFormProcessing before], we need to install the `request` context processor in order to use API on Django's `request` object. In this case, we want to use `request.GET`.
+As [EgFormProcessing before], we need to install the `request` context processor in `settings.py` in order to use API from Django's `request` object inside our simplate. In this case, we want to use `request.GET`.
 
 
 === urls.py ===
@@ -40,42 +40,31 @@ from simplates.views import direct_to_simplate
 
 
 urlpatterns = patterns('',
-    (r'^header.html$', direct_to_simplate),
+    (r'^header.gif$', direct_to_simplate),
 )
 }}}
 
 
-=== simplate at /path/to/simplates/contact.html ===
+=== simplate at /path/to/simplates/header.gif ===
 
-By now, you should know that a simplate has [EgRedirect up to three sections], separated by this line:
-
-{{{
-#<!--===BREAK===-->
-}}}
-
-The sections are:
-
-  # *import*--Python, run once
-  # *view*--Python, run every request
-  # *template*--Django template
-
-Here is the content of our simplate for this example:
+Unlike all our previous examples, this simplate will not use a Django template. We will only ever define an explicit `response` object. Note, however, that in order for the simplate processor to know how to interpret each section, we still need two section breaks. We simply leave the template section empty.
 
 {{{
-from django.forms import *
-
-#@: BUILD FORM HERE
-
-
-#<!--===BREAK===-->
-
-#@: PROCESS FORM HERE
+import Imaging # or whatever
+from django import http
 
 
 #<!--===BREAK===-->
-<form action="{{ request.META.PATH_INFO }}" method="POST">
-{{ myform }}
-</form>
+
+text = request.GET.get('text').strip()
+if not text:
+    raise SystemExit(http.HttpBadRequest)
+
+#@: process image and write to response
+response = http.HttpResponse()
+
+#<!--===BREAK===-->
+[empty template]
 }}}
 
 
