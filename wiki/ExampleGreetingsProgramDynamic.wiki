@@ -23,7 +23,7 @@ Greetings, Perl!
 }}}
 
 
-* settings.py
+=== settings.py ===
 
 {{{
 SIMPLATE_DIRS = (
@@ -32,7 +32,7 @@ SIMPLATE_DIRS = (
 }}}
 
 
-* urls.py
+=== urls.py ===
 
 {{{
 
@@ -50,7 +50,7 @@ urlpatterns = patterns('',
 }}}
 
 
-* simplate at /path/to/simplates/greetings/program.html:
+=== simplate at /path/to/simplates/greetings/program.html ===
 
 Our simplate has two sections, separated by this line:
 
