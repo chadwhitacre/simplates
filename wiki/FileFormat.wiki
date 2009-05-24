@@ -2,8 +2,8 @@
 
 This document details the simplate file format. See also:
 
-  # [Installation wiring simplates up to Django]
-  # [http://code.google.com/p/simplates/ a tutorial for the simplate file format]
+  # [Installation details on wiring simplates up to Django]
+  # [http://code.google.com/p/simplates/ the tutorial]
 
 Start with these old docs:
 
