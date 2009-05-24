@@ -65,3 +65,6 @@ if request.user.is_anonymous():
 
 <p>You must be authenticated to view this.</p>
 }}}
+
+
+== Next Example: [EgFormProcessing Processing a Form] ==
