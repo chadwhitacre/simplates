@@ -46,7 +46,7 @@ The first section is only run once, when the simplate is hit for the first time.
 
 Now let's look at `raise SystemExit`, aka `sys.exit()`. Here's how `SystemExit` behaves from inside a simplate:
 
-  * `raise SystemExit(response)` _skips_ all further processing (returns response directly)
+  * `raise SystemExit(response)` _skips_ all further processing (returns `response` directly)
   * `raise SystemExit` _proceeds to_ further processing (skips rest of simplate view code)
 
 Here is the content of our simplate for this example:
