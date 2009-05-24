@@ -2,8 +2,8 @@
 
 This example introduces:
 
-  # POSTing to yourself (a common pattern with simplates)
-  # using a request object
+  # `POST`ing to yourself (a common pattern with simplates)
+  # using `settings.TEMPLATE_CONTEXT_PROCESSORS`
 
 For this example, we will implement a simple contact form.
 
@@ -12,9 +12,18 @@ For this example, we will implement a simple contact form.
 
 {{{
 SIMPLATE_DIRS = (
-     '/path/to/simplates',
+    '/path/to/simplates',
+)
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.request'
 )
 }}}
+
+Note that we have enabled [http://docs.djangoproject.com/en/dev/ref/templates/api/#django-core-context-processors-request the `request` context processor] (the others are [http://docs.djangoproject.com/en/dev/ref/templates/api/#id1 the defaults], which we don't want to lose). We do this so that we can access the `request` object from our simplates later on.
 
 
 === urls.py ===
@@ -58,8 +67,9 @@ from django.forms import *
 
 
 #<!--===BREAK===-->
-
+<form action="{{ request.META.PATH_INFO }}" method="POST">
 {{ myform }}
+</form>
 }}}
 
 
