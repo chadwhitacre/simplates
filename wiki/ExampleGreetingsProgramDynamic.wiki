@@ -78,9 +78,9 @@ try:
     # The values from the regex in urls.py are available in a 'params' dictionary.
     program = params['program'] 
 except KeyError:
-    program = 'program'
+    program = 'program'    # default value
 
-program = program.title()
+program = program.title()  # convert to title case
 
 
 #<!--===BREAK===-->
