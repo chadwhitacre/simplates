@@ -1,4 +1,4 @@
-=Example: Greetings, program! (Dynamic)=
+=Example 2: Greetings, program! (Dynamic)=
 
 This example is slightly more complicated. It introduces:
 
