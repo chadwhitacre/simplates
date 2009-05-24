@@ -2,8 +2,8 @@
 
 This example introduces:
 
-  # `POST`ing to yourself (a common pattern with simplates)
-  # using `settings.TEMPLATE_CONTEXT_PROCESSORS`
+  # `POST`ing to yourself, a common pattern with simplates
+  # accessing the `request` object from a simplate
 
 For this example, we will implement a simple contact form.
 
