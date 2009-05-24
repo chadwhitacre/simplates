@@ -28,8 +28,9 @@ urlpatterns = patterns('',
 
 === simplate at /path/to/simplates/index.html ===
 
+This is just a straight Django template. You might as well have used `direct_to_template`.
+
 {{{
-<!-- Just a Django template -->
 <p>Greetings, program!</p>
 }}}
 
