@@ -1,4 +1,4 @@
-=Example: Greetings, program!=
+=Example 1: Greetings, program!=
 
 This is the simplest example. We just want our homepage to show:
 
