@@ -1,6 +1,11 @@
-=Example: Redirecting to Another Page=
+=Example 3: Redirecting to Another Page=
 
-Let's say we want to redirect to a login page if the user is not logged in. Here is one way we could do that with simplates.
+This example introduces two things:
+
+  # the 'import' section of a simplate
+  # ending a request with `raise SystemExit(response)`
+
+As a contrived example, we will redirect to a login page if the user hits our simplate and is not logged in.
 
 
 * settings.py
@@ -9,7 +14,6 @@ Let's say we want to redirect to a login page if the user is not logged in. Here
 SIMPLATE_DIRS = (
      '/path/to/simplates',
 )
-SIMPLATE_DEFAULTS = ('index.html',)
 }}}
 
 
@@ -38,7 +42,7 @@ This simplate has three sections, all separated by this line:
 
 Again, this token is chosen so that it is syntax-highlighted as a comment in your editor whether you are using HTML or Python highlighting (to work efficiently with simplates, you'll want to set up a key mapping in your editor to quickly switch between these highlighting modes).
 
-The first section is only run once, at startup time. Use it for doing Python imports and defining constants. The second section is a Django view, and the this section is a Django template. Any objects you define in the first (import) or second (view) sections become part of the context for the third (template) section.
+The first section is only run once, at startup time. Use it for doing Python imports and defining constants. The second section is a Django view, and the third section is a Django template. Any objects you define in the first (import) or second (view) sections become part of the context for the third (template) section.
 
 Here is the content of the simplate:
 
