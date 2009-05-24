@@ -1,5 +1,8 @@
+= Installation =
 
 Check the trunk out of svn into a simplates directory on your python path.
+
+@@: easy_install? At least have a tarball/ZIP.
 
 You get a `direct_to_simplates` view, which you use in `urls.py` like so:
 
@@ -33,3 +36,5 @@ http://www.example.com/greetings/django/ => /opt/site/simplates/greetings/progra
 }}}
 
 Captured values in the regular expressions in `urls.py` are available in a `params` dictionary in your simplate.
+
+== Next: [Installation Installation] ==
