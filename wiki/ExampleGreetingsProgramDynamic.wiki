@@ -60,7 +60,7 @@ Our simplate has two sections, separated by this line:
 
 This token is chosen so that it is syntax-highlighted as a comment in your editor whether you are using HTML or Python highlighting (to work efficiently with simplates, you'll want to set up a key mapping in your editor to quickly switch between these highlighting modes).
 
-Think of the first section as a Django view, and the second section as a Django template. Any objects you define in the first section (the view) become part of the Context for the second (the template).
+Think of the first section as a Django view, and the second section as a Django template. Any objects you define in the first section (the view) become part of the context for the second (the template).
 
 Here is the content of the simplate:
 
