@@ -1,0 +1,90 @@
+=Example 2: Greetings, program! (Dynamic)=
+
+This example is slightly more complicated. It introduces:
+
+  # the concept of 'sections' in simplates
+  # serving multiple URLs from a single simplate
+  # accessing variables captured in a regex in urls.py
+
+For this example, we want these:
+
+{{{
+http://www.example.com/greetings/python/
+http://www.example.com/greetings/django/
+http://www.example.com/greetings/perl/
+}}}
+
+to all be served by:
+
+{{{
+/path/to/simplates/greetings/program.html
+}}}
+
+And we want the output to vary based on the URL, like so:
+
+{{{
+Greetings, Python!
+Greetings, Django!
+Greetings, Perl!
+}}}
+
+
+How do we do this with simplates? Let's see ...
+
+
+=== settings.py ===
+
+{{{
+SIMPLATE_DIRS = (
+     '/path/to/simplates',
+)
+}}}
+
+
+=== urls.py ===
+
+{{{
+
+from django.conf.urls.defaults import *
+from simplates.views import direct_to_simplate
+
+
+urlpatterns = patterns('',
+    ( r'^greetings/(?P<program>[^/]+)/$'
+    , direct_to_simplate
+    , {'simplate':'greetings/program.html'}
+     )
+)
+
+}}}
+
+
+=== simplate at /path/to/simplates/greetings/program.html ===
+
+Our simplate has two sections, separated by this line:
+
+{{{
+#<!--===BREAK===-->
+}}}
+
+This token was chosen so that it is syntax-highlighted as a comment in your editor whether you are using HTML or Python highlighting (to work efficiently with simplates, you'll want to set up a key mapping in your editor to quickly switch between these highlighting modes).
+
+Think of the first section as a Django view, and the second section as a Django template. Any objects you define in the first section (the view) become part of the context for the second (the template).
+
+Here is the content of the simplate:
+
+{{{
+try:
+    # The values from the regex in urls.py are available in a 'params' dictionary.
+    program = params['program'] 
+except KeyError:
+    program = 'program'    # default value
+
+program = program.title()  # convert to title case
+
+
+#<!--===BREAK===-->
+<p>Greetings, {{ program }}!</p>
+}}}
+
+You can see that we access the second URL part as captured in `urls.py`, and transform it to title case before inserting it into our template.
