@@ -6,6 +6,11 @@ This is the simplest example. We just want our homepage to show:
 Greetings, program!
 }}}
 
+This example introduces:
+
+  # wiring simplates up to Django
+  # default documents
+
 
 === settings.py ===
 
