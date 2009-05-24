@@ -1,4 +1,4 @@
-=Example: Redirect=
+=Example: Redirecting to Another Page=
 
 * settings.py
 
