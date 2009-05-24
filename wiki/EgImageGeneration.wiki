@@ -68,4 +68,4 @@ response = http.HttpResponse()
 }}}
 
 
-== Next Example: [EgImageGeneration Generating an Image Dynamically] ==
+== Next: [Installation Installation] ==
