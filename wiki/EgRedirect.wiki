@@ -1,0 +1,67 @@
+=Example 3: Redirecting to Another Page=
+
+This example introduces two things:
+
+  # the 'import' section of a simplate
+  # ending a request with `raise SystemExit(response)`
+
+As a contrived example, we will redirect to a login page if the user hits our simplate and is not logged in.
+
+
+* settings.py
+
+{{{
+SIMPLATE_DIRS = (
+     '/path/to/simplates',
+)
+}}}
+
+
+* urls.py
+
+{{{
+
+from django.conf.urls.defaults import *
+from simplates.views import direct_to_simplate
+
+
+urlpatterns = patterns('',
+    (r'^private/file.html$', direct_to_simplate),
+)
+
+}}}
+
+
+* simplate at /path/to/simplates/private/file.html:
+
+This simplate has three sections, all separated by this line:
+
+{{{
+#<!--===BREAK===-->
+}}}
+
+Again, this token is chosen so that it is syntax-highlighted as a comment in your editor whether you are using HTML or Python highlighting (to work efficiently with simplates, you'll want to set up a key mapping in your editor to quickly switch between these highlighting modes).
+
+The first section is only run once, when the simplate is hit for the first time. Use it for doing Python imports and defining constants. The second section is a Django view, and the third section is a Django template. Any objects you define in the first (import) or second (view) sections become part of the context for the third (template) section.
+
+Now let's look at `raise SystemExit`, aka `sys.exit()`. Here's how `SystemExit` behaves from inside a simplate:
+
+  * `raise SystemExit(response)` _skips_ all further processing (returns `response` directly)
+  * `raise SystemExit` _proceeds to_ further processing (skips rest of simplate view code)
+
+Here is the content of our simplate for this example:
+
+{{{
+from django.http import HttpResponseRedirect
+
+
+#<!--===BREAK===-->
+
+if request.user.is_anonymous():
+    raise SystemExit(HttpResponseRedirect('/login/'))
+
+
+#<!--===BREAK===-->
+
+<p>You must be authenticated to view this.</p>
+}}}
