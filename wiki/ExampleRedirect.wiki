@@ -1,3 +1,5 @@
+=Example: Redirect=
+
 * settings.py
 
 {{{
