@@ -3,7 +3,7 @@
 This is the simplest example.
 
 
-* settings.py
+=== settings.py ===
 
 {{{
 SIMPLATE_DIRS = (
@@ -11,7 +11,9 @@ SIMPLATE_DIRS = (
 )
 SIMPLATE_DEFAULTS = ('index.html',)
 }}}
-* urls.py
+
+
+=== urls.py ===
 
 {{{
 from django.conf.urls.defaults import *
@@ -24,9 +26,16 @@ urlpatterns = patterns('',
 }}}
 
 
-* Simplate at /path/to/simplates/index.html:
+=== simplate at /path/to/simplates/index.html ===
 
 {{{
 <!-- Just a Django template -->
 <p>Greetings, program!</p>
+}}}
+
+
+=== result at http://www.example.com/ ===
+
+{{{
+Greetings, program!
 }}}
