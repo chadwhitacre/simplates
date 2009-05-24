@@ -53,20 +53,21 @@ urlpatterns = patterns('',
 
 * Simplate at /path/to/simplates/greetings/program.html:
 
-{{{
-"""Python runtime section (think of this as view code)
-"""
+Our Simplate has two sections, separated by this line:
 
+{{{
+#<!--===BREAK===-->
+}}}
+
+This token is chosen so that it is syntax-highlighted as a comment in your editor whether you are using HTML or Python highlighting. Think of the first section as a Django view, and the second section as a Django template. Any objects you define in the first section become part of the Context for the template.
+
+{{{
 try:
-    # Access the values from the regex in urls.py via the 'params' dictionary.
+    # The values from the regex in urls.py are available in a 'params' dictionary.
     program = params['program'] 
 except KeyError:
     program = 'program'
 
 #<!--===BREAK===-->
-{% comment %}
-Django template section (context is namespace from first two sections)
-{% endcomment %}
-
 <p>Greetings, {{ program }}!</p>
 }}}
