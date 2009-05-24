@@ -8,7 +8,7 @@ This example introduces two things:
 As a contrived example, we will redirect to a login page if the user hits our simplate and is not logged in.
 
 
-* settings.py
+=== settings.py ===
 
 {{{
 SIMPLATE_DIRS = (
@@ -17,7 +17,7 @@ SIMPLATE_DIRS = (
 }}}
 
 
-* urls.py
+=== urls.py ===
 
 {{{
 
@@ -32,7 +32,7 @@ urlpatterns = patterns('',
 }}}
 
 
-* simplate at /path/to/simplates/private/file.html:
+=== simplate at /path/to/simplates/private/file.html ===
 
 This simplate has three sections, all separated by this line:
 
