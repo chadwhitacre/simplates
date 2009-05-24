@@ -3,7 +3,7 @@
 This document details the simplate file format. See also:
 
   # [Installation wiring simplates up to Django]
-  # [http://code.google.com/p/simplates/ a graded tutorial] for the simplate file format
+  # [http://code.google.com/p/simplates/ a tutorial for the simplate file format]
 
 Start with these old docs:
 
