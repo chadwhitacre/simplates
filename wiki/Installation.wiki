@@ -1,5 +1,7 @@
 = Installation =
 
+This doc tells you how to wire simplates into your Django project. It covers everything up to actually writing your first simplate.
+
 Check the trunk out of svn into a simplates directory on your python path.
 
 @@: easy_install? At least have a tarball/ZIP.
