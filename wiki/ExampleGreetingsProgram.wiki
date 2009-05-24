@@ -30,21 +30,6 @@ urlpatterns = patterns('',
 * Simplate at /path/to/simplates/index.html:
 
 {{{
-# Import section
-# ==============
-
- # ASCII form feed (this character is also called a page break, FF, <ctrl>-L, 0xc, 12).
-
-# Python runtime section
-# ======================
-
-try:
-    program = params['program']
-except KeyError:
-    program = 'program'
-
- # ASCII form feed
-
-<!-- Django Template Section-->
-<p>Greetings, {{ program }}!</p>
+<!-- Just a Django template -->
+<p>Greetings, program!</p>
 }}}
