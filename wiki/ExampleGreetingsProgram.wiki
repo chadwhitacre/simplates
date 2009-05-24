@@ -1,3 +1,8 @@
+=Example: Greetings, program!=
+
+This is the simplest example.
+
+
 * settings.py
 
 {{{
