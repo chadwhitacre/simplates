@@ -58,7 +58,7 @@ urlpatterns = patterns('',
 """
 
 try:
-    # Access the values from the regex in urls.py via the 'params' dict.
+    # Access the values from the regex in urls.py via the 'params' dictionary.
     program = params['program'] 
 except KeyError:
     program = 'program'
