@@ -1,6 +1,6 @@
 =Example 2: Greetings, program! (Dynamic)=
 
-This example is slightly more complicated. It introduces:
+This example is more complicated. It introduces:
 
   # the concept of 'sections' in simplates
   # serving multiple URLs from a single simplate
@@ -88,3 +88,6 @@ program = program.title()  # convert to title case
 }}}
 
 You can see that we access the second URL part as captured in `urls.py`, and transform it to title case before inserting it into our template.
+
+
+== Next Example: [EgRedirect Redirecting to Another Page] ==
