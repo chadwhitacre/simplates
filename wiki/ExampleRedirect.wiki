@@ -44,7 +44,12 @@ Again, this token is chosen so that it is syntax-highlighted as a comment in you
 
 The first section is only run once, at startup time. Use it for doing Python imports and defining constants. The second section is a Django view, and the third section is a Django template. Any objects you define in the first (import) or second (view) sections become part of the context for the third (template) section.
 
-Here is the content of the simplate:
+Here's how SystemExit works with simplates:
+
+  * `raise SystemExit(response)` _skips_ all further processing (returns response directly)
+  * `raise SystemExit` _proceeds to_ further processing (skips rest of simplate view code)
+
+Here is the content of our simplate for this example:
 
 {{{
 from django.http import HttpResponseRedirect
