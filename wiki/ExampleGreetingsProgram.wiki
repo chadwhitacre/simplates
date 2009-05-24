@@ -16,13 +16,13 @@ SIMPLATE_DIRS = (
 * urls.py
 
 {{{
-
 from django.conf.urls.defaults import *
-from project.simplates.views import direct_to_simplate
-urlpatterns = patterns('',
-    (r'^greetings/(?P<program>[^/]+)/$', direct_to_simplate, {'simplate':'index.html'}),
-)
+from simplates.views import direct_to_simplate
 
+
+urlpatterns = patterns('',
+    (r'^$', direct_to_simplate),
+)
 }}}
 
 
@@ -40,10 +40,10 @@ urlpatterns = patterns('',
 try:
     program = params['program']
 except KeyError:
-    program = 'World'
+    program = 'program'
 
  # ASCII form feed
 
 <!-- Django Template Section-->
-<p>Greetings {{program}}!!</p>
+<p>Greetings, {{ program }}!</p>
 }}}
