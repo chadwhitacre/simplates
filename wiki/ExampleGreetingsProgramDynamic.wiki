@@ -1,26 +1,35 @@
 =Example: Greetings, program! (Dynamic)=
 
-We want these:
+This example is slightly more complicated. It introduces:
+
+  # the concept of 'sections' in simplates
+  # serving multiple URLs from a single simplate
+  # accessing variables captured in a regex in urls.py
+
+For this example, we want these:
 
 {{{
-http://www.example.com/greetings/Python/
-http://www.example.com/greetings/Django/
-http://www.example.com/greetings/Perl/
+http://www.example.com/greetings/python/
+http://www.example.com/greetings/django/
+http://www.example.com/greetings/perl/
 }}}
 
-To all be served by:
+to all be served by:
 
 {{{
 /path/to/simplates/greetings/program.html
 }}}
 
-And we want the output to vary based on the URL:
+And we want the output to vary based on the URL, like so:
 
 {{{
 Greetings, Python!
 Greetings, Django!
 Greetings, Perl!
 }}}
+
+
+How do we do this with simplates? Let's see ...
 
 
 === settings.py ===
@@ -71,6 +80,11 @@ try:
 except KeyError:
     program = 'program'
 
+program = program.title()
+
+
 #<!--===BREAK===-->
 <p>Greetings, {{ program }}!</p>
 }}}
+
+You can see that we access the second URL part as captured in `urls.py`, and transform it to title case before inserting it into our template.
