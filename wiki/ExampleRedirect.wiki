@@ -42,9 +42,9 @@ This simplate has three sections, all separated by this line:
 
 Again, this token is chosen so that it is syntax-highlighted as a comment in your editor whether you are using HTML or Python highlighting (to work efficiently with simplates, you'll want to set up a key mapping in your editor to quickly switch between these highlighting modes).
 
-The first section is only run once, at startup time. Use it for doing Python imports and defining constants. The second section is a Django view, and the third section is a Django template. Any objects you define in the first (import) or second (view) sections become part of the context for the third (template) section.
+The first section is only run once, when the simplate is hit for the first time. Use it for doing Python imports and defining constants. The second section is a Django view, and the third section is a Django template. Any objects you define in the first (import) or second (view) sections become part of the context for the third (template) section.
 
-Here's how `SystemExit` behaves from inside a simplate:
+Now let's look at `raise SystemExit`, aka `sys.exit()`. Here's how `SystemExit` behaves from inside a simplate:
 
   * `raise SystemExit(response)` _skips_ all further processing (returns response directly)
   * `raise SystemExit` _proceeds to_ further processing (skips rest of simplate view code)
