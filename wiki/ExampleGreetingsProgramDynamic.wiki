@@ -50,15 +50,19 @@ urlpatterns = patterns('',
 }}}
 
 
-* Simplate at /path/to/simplates/greetings/program.html:
+* simplate at /path/to/simplates/greetings/program.html:
 
-Our Simplate has two sections, separated by this line:
+Our simplate has two sections, separated by this line:
 
 {{{
 #<!--===BREAK===-->
 }}}
 
-This token is chosen so that it is syntax-highlighted as a comment in your editor whether you are using HTML or Python highlighting. Think of the first section as a Django view, and the second section as a Django template. Any objects you define in the first section become part of the Context for the template.
+This token is chosen so that it is syntax-highlighted as a comment in your editor whether you are using HTML or Python highlighting (to work efficiently with simplates, you'll want to set up a key mapping in your editor to quickly switch between these highlighting modes).
+
+Think of the first section as a Django view, and the second section as a Django template. Any objects you define in the first section (the view) become part of the Context for the second (the template).
+
+Here is the content of the simplate:
 
 {{{
 try:
