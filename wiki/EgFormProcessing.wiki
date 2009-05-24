@@ -1,0 +1,66 @@
+=Example 4: Processing a Form=
+
+This example introduces:
+
+  # POSTing to yourself (a common pattern with simplates)
+  # using a request object
+
+For this example, we will implement a simple contact form.
+
+
+=== settings.py ===
+
+{{{
+SIMPLATE_DIRS = (
+     '/path/to/simplates',
+)
+}}}
+
+
+=== urls.py ===
+
+{{{
+from django.conf.urls.defaults import *
+from simplates.views import direct_to_simplate
+
+
+urlpatterns = patterns('',
+    (r'^contact.html$', direct_to_simplate),
+)
+}}}
+
+
+=== simplate at /path/to/simplates/contact.html ===
+
+By now, you should know that a simplate has up to three sections, separated by this line:
+
+{{{
+#<!--===BREAK===-->
+}}}
+
+The sections are:
+
+  # *import*--Python, run once
+  # *view*--Python, run every request
+  # *template*--Django template
+
+Here is the content of our simplate for this example:
+
+{{{
+from django.forms import *
+
+#@: BUILD FORM HERE
+
+
+#<!--===BREAK===-->
+
+#@: PROCESS FORM HERE
+
+
+#<!--===BREAK===-->
+
+{{ myform }}
+}}}
+
+
+== Next Example: [EgImageGeneration Generating an Image Dynamically] ==
