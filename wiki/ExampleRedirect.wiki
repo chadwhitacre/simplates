@@ -1,4 +1,3 @@
-
 * settings.py
 
 {{{
@@ -24,23 +23,20 @@ urlpatterns = patterns('',
 * Simplate at /path/to/simplates/index.html:
 
 {{{
-# Import section
-# ==============
+"""Import section
+"""
 from django.http import HttpResponseRedirect
 
 
----===BREAK===---
-
-
-# Python runtime section
-# ======================
+#<!--===BREAK===-->
+"""Python runtime section
+"""
 
 if request.user.is_anonymous():
     raise SystemExit(HttpResponseRedirect('/login/'))
 
 
----===BREAK===---
-
+#<!--===BREAK===-->
 
 <!-- Django Template Section-->
 <p>You must be authenticated to view this.</p>
