@@ -1,5 +1,28 @@
 =Example: Greetings, program! (Dynamic)=
 
+We want these:
+
+{{{
+http://www.example.com/greetings/Python/
+http://www.example.com/greetings/Django/
+http://www.example.com/greetings/Perl/
+}}}
+
+To all be served by:
+
+{{{
+/path/to/simplates/greetings/program.html
+}}}
+
+And we want the output to vary based on the URL:
+
+{{{
+Greetings, Python!
+Greetings, Django!
+Greetings, Perl!
+}}}
+
+
 * settings.py
 
 {{{
@@ -11,20 +34,6 @@ SIMPLATE_DEFAULTS = ('index.html',)
 
 
 * urls.py
-
-We want these:
-
-{{{
-http://www.example.com/greetings/python/
-http://www.example.com/greetings/django/
-http://www.example.com/greetings/perl/
-}}}
-
-To all be served by:
-
-{{{
-/path/to/simplates/greetings/program.html
-}}}
 
 {{{
 
@@ -49,7 +58,8 @@ urlpatterns = patterns('',
 """
 
 try:
-    program = params['program'] # this comes from the URL per urls.py
+    # Access the values from the regex in urls.py via the 'params' dict.
+    program = params['program'] 
 except KeyError:
     program = 'program'
 
