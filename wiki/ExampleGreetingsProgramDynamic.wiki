@@ -51,7 +51,7 @@ from simplates.views import direct_to_simplate
 
 urlpatterns = patterns('',
     ( r'^greetings/(?P<program>[^/]+)/$'
-    , direct_to_simplate)
+    , direct_to_simplate
     , {'simplate':'greetings/program.html'}
      )
 )
