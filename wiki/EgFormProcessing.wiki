@@ -53,6 +53,8 @@ The sections are:
   # *view*--Python, run every request
   # *template*--Django template
 
+The objects in the Python sections are available in the template section.
+
 Here is the content of our simplate for this example:
 
 {{{
