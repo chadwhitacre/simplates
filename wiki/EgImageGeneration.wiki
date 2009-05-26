@@ -5,13 +5,11 @@ In this example we show two things:
   # using the querystring
   # fully customizing the `response` object
 
-We are going to dynamically serve header images as GIF files from URLs of the form:
+Let's assume that the [http://www.pythonware.com/products/pil/ Python Imaging Library (PIL)] is already installed. We are going to build off of [http://effbot.org/zone/django-pil.htm this example of integrating PIL with Django] to serve rectangles of different colors via URLs of this form:
 
 {{{
-http://www.example.com/heading.gif?text=My%20Heading
+http://www.example.com/heading.gif?ink={red,green,blue,yellow}
 }}}
-
-We will assume that the [http://www.pythonware.com/products/pil/ Python Imaging Library (PIL)] is installed.
 
 
 === settings.py ===
@@ -47,24 +45,30 @@ urlpatterns = patterns('',
 
 === simplate at /path/to/simplates/header.gif ===
 
-Unlike all our previous examples, this simplate will not use a Django template. We will only ever define an explicit `response` object. Note, however, that in order for the simplate processor to know how to interpret each section, we still need two section breaks. We simply leave the template section empty.
+This simplate will not have a template section. Instead, we are going to explicitly define a `response` object to hold the image data. Note, however, that in order for the simplate engine to know how to interpret each section, we still need two section breaks. We simply leave the template section empty.
 
 {{{
-import Imaging # or whatever
+import random
+
+from PIL import Image
 from django import http
 
 
-#<!--===BREAK===-->
+INK = "red", "blue", "green", "yellow"
 
-text = request.GET.get('text').strip()
-if not text:
-    raise SystemExit(http.HttpBadRequest)
-
-#@: process image and write to response
-response = http.HttpResponse()
 
 #<!--===BREAK===-->
-[empty template]
+
+ink = request.GET.get('ink', '').strip()
+if ink not in INK:
+    response = http.HttpResponseBadRequest()
+else:
+    response = http.HttpResponse()
+    image = Image.new("RGB", (800, 600), ink)
+    image.save(response, "GIF")
+
+
+#<!--===BREAK===-->
 }}}
 
 
