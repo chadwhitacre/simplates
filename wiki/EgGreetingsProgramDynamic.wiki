@@ -74,16 +74,12 @@ Think of the first section as a _Django view_, and the second section as a _Djan
 Here is the content of the simplate:
 
 {{{
-try:
-    # The values from the regex in urls.py are available in a 'params' dictionary.
-    program = params['program'] 
-except KeyError:
-    program = 'program'    # default value
-
-program = program.title()  # convert to title case
+program = params['program'] # this is how you access urls.py regex params
+program = program.title()   # convert to Title Case
 
 
 #<!--===BREAK===-->
+
 <p>Greetings, {{ program }}!</p>
 }}}
 
