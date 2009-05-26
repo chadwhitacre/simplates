@@ -50,9 +50,9 @@ By now, you should know that a simplate has [EgRedirect up to three sections], s
 
 The sections are:
 
-  || *import* || Python, runs once ||
-  || *view* || Python, runs every request ||
-  || *template* || Django template ||
+|| *import* || Python, runs once ||
+|| *view* || Python, runs every request ||
+|| *template* || Django template ||
 
 The objects from the Python sections are available in the template section.
 
