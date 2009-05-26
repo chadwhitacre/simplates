@@ -20,7 +20,7 @@ from django.template import loader, loader_tags # gets us "extends," etc.
 ENCODING = 'UTF-8'
 MODE_STPROD = True 
 MODE_DEBUG = False
-FORM_FEED = chr(12) # == '\x0c', ^L, ASCII page break
+BREAK = '#<!--===BREAK===-->'
 
 
 class LoadError(StandardError):
@@ -65,41 +65,31 @@ __locks = Locks()       # access controls for __cache
 def load_simplate_uncached(fspath):
     """Given a filesystem path, return three objects (uncached).
 
-    A simplate is a template with two optional Python components at the
-    head of the file, delimited by an ASCII form feed (also called a page
-    break, FF, ^L, 0xc, 12). The first Python section is exec'd when the
-    simplate is first called, and the namespace it populates is saved for
-    all subsequent runs (so make sure it is thread-safe!). The second
-    Python section is exec'd within the template namespace each time the
-    template is rendered.
-
-    Two more things:
-
-        [simplates]
-        encoding = latin-1
-
-    ... and ...
-
-        __file__
+    A simplate is a Django template with two optional Python components at the
+    head of the file, delimited by '#<!--===BREAK===-->'. The first Python
+    section is exec'd when the simplate is first called, and the namespace it
+    populates is saved for all subsequent runs (so make sure it is
+    thread-safe!). The second Python section is exec'd within the template
+    namespace each time the template is rendered.
 
     """
     simplate = open(fspath).read().decode(ENCODING)
 
-    numff = simplate.count(FORM_FEED)
-    if numff == 0:
+    nbreaks = simplate.count(BREAK)
+    if nbreaks == 0:
         script = imports = ""
         template = simplate
-    elif numff == 1:
+    elif nbreaks == 1:
         imports = ""
-        script, template = simplate.split(FORM_FEED)
-        script += FORM_FEED
-    elif numff == 2:
-        imports, script, template = simplate.split(FORM_FEED)
-        imports += FORM_FEED
-        script += FORM_FEED
+        script, template = simplate.split(BREAK)
+        script += BREAK
+    elif nbreaks == 2:
+        imports, script, template = simplate.split(BREAK)
+        imports += BREAK
+        script += BREAK
     else:
         raise SyntaxError( "Simplate <%s> may have at most two " % fspath
-                         + "form feeds; it has %d." % numff
+                         + "section breaks; it has %d." % nbreaks
                           )
 
     # Standardize newlines.
@@ -237,19 +227,12 @@ def load_simplate_cached(fspath):
 
 def direct_to_simplate(request, *args, **params):
     """Django view to exec and render a simplate.
-
-    We get here like this:
-
-        aspen.website:Website.__call__
-        aspen.handlers.simplates.django_:DjangoSimplate.__call__
-          [i.e., django.core.handlers.wsgi:WSGIHandler.__call__]
-        <your_project>.urls:urlpatterns
-        aspen.handlers.simplates.django_:DjangoSimplate.view
-
     """
 
     # 1. Translate to filesystem
     # ==========================
+    # Our algorithm for computing the fs path varies based on whether a 
+    # specific simplate is named, or it is to be taken from PATH_INFO.
 
     if 'simplate' in params:
         simplate_path = os.path.join(*params['simplate'].split('/'))
@@ -267,6 +250,7 @@ def direct_to_simplate(request, *args, **params):
         fspath = compute_fspath(root)
         if os.path.isfile(fspath):
             break
+    #@: make this error message more helpful
     assert os.path.isfile(fspath), "No default simplate found in %s." % fspath
 
 
@@ -311,13 +295,14 @@ def direct_to_simplate(request, *args, **params):
 
     # 5. Get a response
     # =================
-    # First, explicit response, then, raised response, lastly, implicit.
+    # a) raised response; b) named response; c) implicit response
 
-    if 'response' in namespace:             # explicit
-        response = namespace['response']
-        WANT_CONTENT_TYPE = False
-    elif response is None:                  # raised? (per above)
-        response = HttpResponse()           # implicit
+    if response is None:                  # raised? (per above)
+        if 'response' in namespace:             # explicit
+            response = namespace['response']
+            WANT_CONTENT_TYPE = False
+        else:
+            response = HttpResponse()           # implicit
 
 
     # 6. Render the template
