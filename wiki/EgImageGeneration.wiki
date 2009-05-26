@@ -50,8 +50,8 @@ This simplate will not have a template section. Instead, we are going to explici
 {{{
 import random
 
-from PIL import Image
 from django import http
+from PIL import Image
 
 
 INK = "red", "blue", "green", "yellow"
@@ -65,7 +65,7 @@ if ink not in INK:
 else:
     response = http.HttpResponse()
     image = Image.new("RGB", (800, 600), ink)
-    image.save(response, "GIF")
+    image.save(response, "PNG")
 
 
 #<!--===BREAK===-->
