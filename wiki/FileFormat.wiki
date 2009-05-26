@@ -1,9 +1,6 @@
 =File Format=
 
-This document details the simplate file format. See also:
-
-  # [Installation details on wiring simplates up to Django]
-  # [http://code.google.com/p/simplates/ the tutorial]
+This document details the simplate file format. See also: [http://code.google.com/p/simplates/ the tutorial].
 
 Start with these old docs:
 
