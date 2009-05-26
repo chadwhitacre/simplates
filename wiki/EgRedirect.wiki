@@ -5,7 +5,7 @@ This example introduces two things:
   # the _import_ section of a simplate
   # explicitly defining a `response` object
 
-As a contrived example, we will redirect from http://www.example.com/old.html to http://www.example.com/new.html after a delay of three seconds.
+As a contrived example, we will redirect from [http://www.example.com/old.html /old.html] to [http://www.example.com/new.html /new.html] after a delay of three seconds.
 
 
 === settings.py ===
