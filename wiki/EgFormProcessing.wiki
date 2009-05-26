@@ -53,7 +53,7 @@ The sections are:
   # *view*--Python, run every request
   # *template*--Django template
 
-The objects in the Python sections are available in the template section.
+The objects from the Python sections are available in the template section.
 
 Here is the content of our simplate for this example (compare this with [http://docs.djangoproject.com/en/1.0/topics/forms/#form-objects Django's contact form example without simplates]):
 
