@@ -14,7 +14,7 @@ http://www.example.com/greetings/django/
 http://www.example.com/greetings/perl/
 }}}
 
-to all be served by:
+to all be served by a single simplate at:
 
 {{{
 /path/to/simplates/greetings/program.html
