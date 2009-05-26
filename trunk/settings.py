@@ -2,17 +2,11 @@ import os
 import sys
 
 
-sys.path.append(os.path.join(os.path.dirname(__file__), 'apps'))
-
-
+DEBUG = True
+ROOT = os.path.dirname(__file__)
 ROOT_URLCONF = 'urls'
-
-SIMPLATE_DIRS = (
-    os.path.join(os.environ['BOX'], 'simplates'),
-)
-
+SIMPLATE_DIRS = (os.path.join(ROOT, 'tutorial'),)
 SIMPLATE_DEFAULTS = ('index.html', 'index.htm')
-
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.auth',
     'django.core.context_processors.debug',
@@ -21,3 +15,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request'
 )
 
+
+sys.path.append(os.path.join(ROOT, 'apps'))
