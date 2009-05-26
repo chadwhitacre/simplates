@@ -55,22 +55,36 @@ The sections are:
 
 The objects in the Python sections are available in the template section.
 
-Here is the content of our simplate for this example:
+Here is the content of our simplate for this example (compare this with [http://docs.djangoproject.com/en/1.0/topics/forms/ Django's contact form example without simplates]):
 
 {{{
 from django.forms import *
+from django.http import HttpResponseRedirect
 
-#@: BUILD FORM HERE
+
+class ContactForm(forms.Form):
+    subject = forms.CharField(max_length=100)
+    message = forms.CharField()
+    sender = forms.EmailField()
+    cc_myself = forms.BooleanField(required=False)
 
 
 #<!--===BREAK===-->
 
-#@: PROCESS FORM HERE
+if request.method == 'POST': # If the form has been submitted...
+    form = ContactForm(request.POST) # A form bound to the POST data
+    if form.is_valid(): # All validation rules pass
+        # Process the data in form.cleaned_data
+        # ...
+        raise SystemExit(HttpResponseRedirect('/thanks/')) # Redirect after POST
+else:
+    form = ContactForm() # An unbound form
 
 
 #<!--===BREAK===-->
 <form action="{{ request.META.PATH_INFO }}" method="POST">
-{{ myform }}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
 </form>
 }}}
 
