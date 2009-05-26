@@ -45,7 +45,7 @@ urlpatterns = patterns('',
 
 === simplate at /path/to/simplates/header.gif ===
 
-This simplate will not have a template section. Instead, we are going to explicitly define a `response` object to hold the image data. Note, however, that in order for the simplate engine to know how to interpret each section, we still need two section breaks. We simply leave the template section empty.
+This simplate will not have a template section. Instead, we are going to explicitly define a `response` object to hold the image data, and we will `raise` that via `SystemExit`. Note, however, that in order for the simplate engine to know how to interpret each section, we still need two section breaks. We simply leave the template section empty, and the simplate engine knows not to try to apply it.
 
 {{{
 from django import http
@@ -58,12 +58,15 @@ INK = "red", "blue", "green", "yellow"
 #<!--===BREAK===-->
 
 ink = request.GET.get('ink', '').strip()
+
 if ink not in INK:
     response = http.HttpResponseBadRequest()
 else:
     response = http.HttpResponse()
     image = Image.new("RGB", (800, 600), ink)
     image.save(response, "PNG")
+
+raise SystemExit(response)
 
 
 #<!--===BREAK===-->
