@@ -3,7 +3,7 @@
 In this example we show two things:
 
   # using the querystring
-  # fully customizing the `response` object
+  # serving dynamic content without a template
 
 Let's assume that the [http://www.pythonware.com/products/pil/ Python Imaging Library (PIL)] is already installed. We are going to build off of [http://effbot.org/zone/django-pil.htm this example of integrating PIL with Django] to serve rectangles of different colors via URLs of this form:
 
