@@ -8,7 +8,7 @@ In this example we show two things:
 Let's assume that the [http://www.pythonware.com/products/pil/ Python Imaging Library (PIL)] is already installed. We are going to build off of [http://effbot.org/zone/django-pil.htm this example of integrating PIL with Django] to serve rectangles of different colors via URLs of this form:
 
 {{{
-http://www.example.com/heading.gif?ink={red,green,blue,yellow}
+http://www.example.com/heading.png?ink={red,blue,green,yellow}
 }}}
 
 
