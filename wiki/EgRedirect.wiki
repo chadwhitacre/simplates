@@ -65,5 +65,7 @@ raise SystemExit(HttpResponseRedirect('/new.html'))
 <p>No-one will ever see this.</p>
 }}}
 
+Note that you do need the third section, even though no-one will ever see it. This is because with only two sections, the simplates engine would interpret the second section as a template, and the first section as a view.
+
 
 == Next Example: [EgFormProcessing Processing a Form] ==
