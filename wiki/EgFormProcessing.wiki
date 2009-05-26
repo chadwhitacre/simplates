@@ -2,8 +2,9 @@
 
 This example introduces:
 
-  # `POST`ing to yourself, a common pattern with simplates
+  # `POST`ing to yourself
   # accessing the `request` object from a simplate
+  # skipping the _template_ section
 
 For this example, we will implement a simple contact form.
 
@@ -76,7 +77,8 @@ if request.method == 'POST': # If the form has been submitted...
     if form.is_valid(): # All validation rules pass
         # Process the data in form.cleaned_data
         # ...
-        raise SystemExit(HttpResponseRedirect('/thanks/')) # Redirect after POST
+        response = HttpResponseRedirect('/thanks/') # Redirect after POST
+        response.skip_template = True
 else:
     form = ContactForm() # An unbound form
 
