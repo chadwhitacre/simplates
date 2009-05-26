@@ -48,8 +48,6 @@ urlpatterns = patterns('',
 This simplate will not have a template section. Instead, we are going to explicitly define a `response` object to hold the image data. Note, however, that in order for the simplate engine to know how to interpret each section, we still need two section breaks. We simply leave the template section empty.
 
 {{{
-import random
-
 from django import http
 from PIL import Image
 
