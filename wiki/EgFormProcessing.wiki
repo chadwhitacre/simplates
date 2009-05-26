@@ -55,7 +55,7 @@ The sections are:
 
 The objects in the Python sections are available in the template section.
 
-Here is the content of our simplate for this example (compare this with [http://docs.djangoproject.com/en/1.0/topics/forms/ Django's contact form example without simplates]):
+Here is the content of our simplate for this example (compare this with [http://docs.djangoproject.com/en/1.0/topics/forms/#form-objects Django's contact form example without simplates]):
 
 {{{
 from django.forms import *
