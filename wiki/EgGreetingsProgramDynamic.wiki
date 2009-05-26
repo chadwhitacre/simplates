@@ -74,7 +74,7 @@ Think of the first section as a _Django view_, and the second section as a _Djan
 Here is the content of the simplate:
 
 {{{
-program = params['program'] # this is how you access urls.py regex params
+program = params['program'] # this is how you access urls.py regex parameters
 program = program.title()   # convert to Title Case
 
 
