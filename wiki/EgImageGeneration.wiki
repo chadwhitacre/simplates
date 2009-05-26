@@ -73,4 +73,6 @@ raise SystemExit(response)
 }}}
 
 
+By now you've seen most of what simplates has to offer. Try it out and give us feedback!
+
 == Next: [http://code.google.com/p/simplates/ Installation] ==
