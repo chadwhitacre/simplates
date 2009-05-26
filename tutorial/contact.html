@@ -1,0 +1,32 @@
+import sys
+
+from django import forms
+from django.http import HttpResponseRedirect
+
+
+class ContactForm(forms.Form):
+    subject = forms.CharField(max_length=100)
+    message = forms.CharField()
+    sender = forms.EmailField()
+    cc_myself = forms.BooleanField(required=False)
+
+
+#<!--===BREAK===-->
+
+if request.method == 'POST':
+    form = ContactForm(request.POST)
+    if form.is_valid():
+        # Process the data ...
+        response = HttpResponseRedirect('/thanks.html')
+        response.skip_template = True # Don't do template processing.
+        sys.exit(response)              
+else:
+    form = ContactForm()
+
+
+#<!--===BREAK===-->
+
+<form action="{{ request.META.PATH_INFO }}" method="POST">
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>

@@ -1,0 +1,22 @@
+from django import http
+from PIL import Image
+
+
+INK = "red", "blue", "green", "yellow"
+
+
+#<!--===BREAK===-->
+
+ink = request.GET.get('ink', '').strip()
+
+if ink not in INK:
+    response = http.HttpResponseBadRequest()
+else:
+    response = http.HttpResponse()
+    image = Image.new("RGB", (800, 600), ink)
+    image.save(response, "PNG")
+
+raise SystemExit(response)
+
+
+#<!--===BREAK===-->
