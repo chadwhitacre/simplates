@@ -72,4 +72,4 @@ else:
 }}}
 
 
-== Next: [Installation http://code.google.com/p/simplates/] ==
+== Next: [http://code.google.com/p/simplates/ Installation] ==
