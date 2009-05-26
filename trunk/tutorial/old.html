@@ -1,0 +1,13 @@
+from django.http import HttpResponse
+
+
+#<!--===BREAK===-->
+
+response = HttpResponse()
+response['Refresh'] = "3; url=/new.html"
+raise SystemExit(response)
+
+
+#<!--===BREAK===-->
+
+<p>Redirecting to <a href="/new.html">new.html</a>.</p>
