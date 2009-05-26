@@ -59,6 +59,8 @@ The objects from the Python sections are available in the template section.
 Here is the content of our simplate for this example (compare this with [http://docs.djangoproject.com/en/1.0/topics/forms/#form-objects Django's contact form example without simplates]):
 
 {{{
+import sys
+
 from django import forms
 from django.http import HttpResponseRedirect
 
@@ -78,6 +80,7 @@ if request.method == 'POST':
         # Process the data ...
         response = HttpResponseRedirect('/thanks.html')
         response.skip_template = True # Don't do template processing.
+        sys.exit(response)
 else:
     form = ContactForm()
 
