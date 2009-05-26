@@ -93,6 +93,6 @@ else:
 </form>
 }}}
 
-Notice that we used `sys.exit(response)` here instead of `raise SystemExit(response)`. The two are equivalent in Python. Also notice that we added a special attribute to our `response` object: `skip_template`. This tells the simplate engine not to apply the templating section.
+Notice that we used `sys.exit(response)` here instead of `raise SystemExit(response)`. The two are equivalent in Python. Also notice that we added a special attribute to our `response` object: `skip_template`. This tells the simplate engine not to apply the templating section when we're going to be redirecting anyway.
 
 == Next Example: [EgImageGeneration Generating an Image Dynamically] ==
