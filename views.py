@@ -77,16 +77,16 @@ def load_simplate_uncached(fspath):
 
     nbreaks = simplate.count(BREAK)
     if nbreaks == 0:
-        script = imports = ""
+        view = imports = ""
         template = simplate
     elif nbreaks == 1:
         imports = ""
-        script, template = simplate.split(BREAK)
-        script += BREAK
+        view, template = simplate.split(BREAK)
+        view += BREAK
     elif nbreaks == 2:
-        imports, script, template = simplate.split(BREAK)
-        imports += BREAK
-        script += BREAK
+        imports, view, template = simplate.split(BREAK)
+        imports += '\n'
+        view += '\n'
     else:
         raise SyntaxError( "Simplate <%s> may have at most two " % fspath
                          + "section breaks; it has %d." % nbreaks
@@ -97,25 +97,29 @@ def load_simplate_uncached(fspath):
     # compile requires \n, and doing it now makes the next line easier.
 
     imports = imports.replace('\r\n', '\n')
-    script = script.replace('\r\n', '\n')
+    view = view.replace('\r\n', '\n')
 
 
-    # Pad the beginning of the script section so we get accurate tracebacks.
-    # ======================================================================
+    # Pad the beginning of the view section so we get accurate tracebacks.
+    # ====================================================================
 
-    script = ''.join(['\n' for n in range(imports.count('\n'))]) + script
+    view = ''.join(['\n' for n in range(imports.count('\n'))]) + view
 
 
     # Prep our cachable objects and return.
     # =====================================
 
-    namespace = dict(__file__=fspath)
-    script = compile(script, fspath, 'exec')
-    template = Template(template)
+    namespace = dict()
+    namespace['__file__'] = fspath
+    view = compile(view, fspath, 'exec')
+    if template.strip():
+        template = Template(template)
+    else:
+        template = None
 
     exec compile(imports, fspath, 'exec') in namespace
 
-    return (namespace, script, template)
+    return (namespace, view, template)
 
 
 # Cache wrapper
@@ -169,9 +173,9 @@ def load_simplate_cached(fspath):
                 __locks.checkin.release()
 
     finally:
-        __locks.checkout.release() # Now that we've checked out our
-                                        # simplate, other threads are free
-                                        # to check out other simplates.
+        __locks.checkout.release() # Now that we've checked out our simplate, 
+                                   # other threads are free to check out other 
+                                   # simplates.
 
 
     # Process the simplate.
@@ -217,9 +221,9 @@ def load_simplate_cached(fspath):
     # ======
     # Avoid mutating the cached namespace dictionary.
 
-    namespace, script, template = entry.triple
+    namespace, view, template = entry.triple
     namespace = namespace.copy()
-    return (namespace, script, template)
+    return (namespace, view, template)
 
 
 # Django wrapper
@@ -229,8 +233,8 @@ def direct_to_simplate(request, *args, **params):
     """Django view to exec and render a simplate.
     """
 
-    # 1. Translate to filesystem
-    # ==========================
+    # 1. Translate to filesystem.
+    # ===========================
     # Our algorithm for computing the fs path varies based on whether a 
     # specific simplate is named, or it is to be taken from PATH_INFO.
 
@@ -250,18 +254,19 @@ def direct_to_simplate(request, *args, **params):
         fspath = compute_fspath(root)
         if os.path.isfile(fspath):
             break
-    #@: make this error message more helpful
+
     assert os.path.isfile(fspath), "No default simplate found in %s." % fspath
+    #@: make this error message more helpful
 
 
-    # 2. Load simplate
-    # ================
+    # 2. Load simplate.
+    # =================
 
-    namespace, script, template = load_simplate_cached(fspath)
+    namespace, view, template = load_simplate_cached(fspath)
 
 
-    # 3. Populate namespace
-    # =====================
+    # 3. Populate namespace.
+    # ======================
     # Exec operates on a dictionary, but Django templates don't take a straight 
     # dict, they take a RequestContext (which is basically several overlapping 
     # dictionaries). So we have to go back and forth.
@@ -272,61 +277,61 @@ def direct_to_simplate(request, *args, **params):
     template_context = RequestContext(request, namespace)
 
 
-    # 4. Run the script
+    # 4. Exec the view.
     # =================
 
-    WANT_TEMPLATE = True
-    WANT_CONTENT_TYPE = True
     response = None
-    if script:
+    if view:
         for d in template_context.dicts:
             namespace.update(d)
         try:
-            exec script in namespace
+            exec view in namespace
         except SystemExit, exc:
             if len(exc.args) > 0:
-                arg = exc.args[0]
-                if isinstance(arg, HttpResponse):
-                    response = arg
-                    WANT_TEMPLATE = False
-                    WANT_CONTENT_TYPE = False
+                response = exc.args[0]
         template_context.update(namespace)
 
 
-    # 5. Get a response
-    # =================
-    # a) raised response; b) named response; c) implicit response
+    # 5. Get a response object.
+    # =========================
 
-    if response is None:                  # raised? (per above)
-        if 'response' in namespace:             # explicit
-            response = namespace['response']
-            WANT_CONTENT_TYPE = False
-        else:
-            response = HttpResponse()           # implicit
+    if response is not None:                # explicit
+        if not isinstance(response, HttpResponse):
+            raise TypeError("Simplate exits with an invalid response.")
+    else:
+        response = HttpResponse()           # implicit
 
 
-    # 6. Render the template
-    # ======================
-    # Django 0.96 through trunk/r6670 defaults to text/html, so if the user
-    # doesn't provide an explicit response object (either by defining it
-    # in the namespace or raising it w/ SystemExit) then we guess the
-    # mimetype from the filename extension, and we take the charset from
-    # Django settings.
+    # 5. Process the template.
+    # ========================
+    # If template is None that means that that section was empty.
+    #
+    # For this and the next step, we allow the user to override us by setting 
+    # skip_{template,mimetype} on the response object. We then use getattr to 
+    # access each attribute, because, in the default case, the attribute will
+    # not exist (that is, it's not part of the Django class).
 
-    if WANT_TEMPLATE:
-        response.write(template.render(template_context))
+    if not getattr(response, 'skip_template', False): # response.skip_template
+        if template is not None:
+            response.write(template.render(template_context))
 
-    if WANT_CONTENT_TYPE:
+
+    # 6. Set the mimetype.
+    # ====================
+    # Note that we guess based on the filesystem path, not the URL path.
+    
+    if not getattr(response, 'skip_mimetype', False): # response.skip_mimetype
         guess = mimetypes.guess_type(fspath, 'text/plain')[0]
         if guess is None:
             guess = settings.DEFAULT_CONTENT_TYPE
+            # FYI, the default through trunk/r6670 (includes 0.96) is text/html
         if guess.startswith('text/'):
             guess += "; charset=%s" % settings.DEFAULT_CHARSET
         response['Content-Type'] = guess
 
 
-    # 7. Return
-    # =========
+    # 7. Return.
+    # ==========
 
     return response
 
