@@ -45,7 +45,7 @@ urlpatterns = patterns('',
 
 === simplate at /path/to/simplates/header.gif ===
 
-This simplate will not have a template section. Instead, we are going to explicitly define a `response` object to hold the image data, and we will `raise` that via `SystemExit`. Note, however, that in order for the simplate engine to know how to interpret each section, we still need two section breaks. We simply leave the template section empty, and the simplate engine knows not to try to apply it.
+This simplate will not have a template section. Instead, we are going to explicitly define a `response` object to hold the image data, and we will `raise` that via `SystemExit`. Note, however, that in order for the simplate engine to know how to interpret each section, we still need two section breaks. We simply leave the template section empty, and the simplate engine knows not to try to apply it (that is, we don't need to use `response.skip_template` when the _template_ section is empty).
 
 {{{
 from django import http
