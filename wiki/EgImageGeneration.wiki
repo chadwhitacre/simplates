@@ -45,7 +45,7 @@ urlpatterns = patterns('',
 
 === simplate at /path/to/simplates/rectangle.png ===
 
-This simplate will not have a template section. Instead, we are going to explicitly define a `response` object to hold the image data, and we will `raise` that via `SystemExit`. Note, however, that in order for the simplate engine to know how to interpret each section, we still need two section breaks. We simply leave the _template_ section empty, and the simplate engine knows not to try to apply it (that is, we don't need to use [EgFormProcessing `response.skip_template`] when the _template_ section is empty).
+This simplate will not have a template section. Instead, we are going to explicitly define a `response` object to hold the image data, and we will `raise` that via `SystemExit`. Note, however, that in order for the simplate engine to know how to interpret each section, we still need two section breaks. We simply leave the _template_ section empty, and the simplate engine knows not to try to apply it (that is, we don't need to use `[EgFormProcessing response.skip_template]` when the _template_ section is empty).
 
 {{{
 from django import http
