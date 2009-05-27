@@ -4,6 +4,7 @@ This example introduces two things:
 
   # the _import_ section of a simplate
   # defining your own `response` object
+  # using `raise SystemExit`
 
 As a contrived example, we will redirect from [http://www.example.com/old.html /old.html] to [http://www.example.com/new.html /new.html] after a delay of three seconds.
 
