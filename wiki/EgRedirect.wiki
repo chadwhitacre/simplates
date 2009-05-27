@@ -63,6 +63,6 @@ raise SystemExit(response)
 <p>Redirecting to <a href="/new.html">new.html</a>.</p>
 }}}
 
-Notice here that we `raise SystemExit`. This always terminates execution of the _view_ section immediately. If you don't provide any arguments to `SystemExit`, then simplate processing proceeds as usual (an implicit `HttpResponse` is created, templating is applied, etc.). However, if you do provide any arguments to `SystemExit`, it must be a single object: a Django `HttpResponse`. This object is then used to render the response back to the browser, giving you control over the response when you need it.
+Notice here that we `raise SystemExit`. This always terminates execution of the _view_ section immediately. If you don't provide any arguments to `SystemExit`, then simplate processing proceeds as usual (an implicit `HttpResponse` is created, templating is applied, etc.). However, if you do provide an argument to `SystemExit`, it must be a Django `HttpResponse`. This object is then used to render the response back to the browser, giving you control over the response when you need it.
 
 == Next Example: [EgFormProcessing Processing a Form] ==
