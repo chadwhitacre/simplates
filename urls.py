@@ -22,7 +22,7 @@ urlpatterns = patterns('',
 
 
     # Example 5 
-    (r'^heading.png$', direct_to_simplate),
+    (r'^rectangle.png$', direct_to_simplate),
 
 
     # Example 1 (keep this last, eh?)
