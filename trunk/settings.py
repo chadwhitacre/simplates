@@ -5,8 +5,8 @@ import sys
 DEBUG = True
 ROOT = os.path.dirname(__file__)
 ROOT_URLCONF = 'urls'
-SIMPLATE_DIRS = (os.path.join(ROOT, 'tutorial'),)
 SIMPLATE_DEFAULTS = ('index.html', 'index.htm')
+SIMPLATE_DIRS = (os.path.join(ROOT, 'tutorial'),)
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.auth',
     'django.core.context_processors.debug',
