@@ -24,7 +24,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 }}}
 
-Note that we have enabled [http://docs.djangoproject.com/en/dev/ref/templates/api/#django-core-context-processors-request the "request" context processor] (the others are [http://docs.djangoproject.com/en/dev/ref/templates/api/#id1 the defaults], which we don't want to lose). We need the `request` context processor in order to access the `request` object from our simplate later on.
+Note that we have enabled [http://docs.djangoproject.com/en/dev/ref/templates/api/#django-core-context-processors-request the "request" context processor] (the others are [http://docs.djangoproject.com/en/dev/ref/templates/api/#id1 the defaults], which we don't want to lose). We need the `request` context processor in order to access the `request` object from our simplate, as we'll see below.
 
 
 === urls.py ===
