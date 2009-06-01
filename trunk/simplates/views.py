@@ -335,3 +335,17 @@ def direct_to_simplate(request, *args, **params):
 
     return response
 
+
+# Simplate
+# ========
+# Wrapper for specifying a single simplate for multiple URLs in urls.py.
+
+class Simplate(object):
+
+    def __init__(self, path):
+        self.path = path
+
+    def __call__(self, request, *args, **kwargs):
+        kwargs['simplate'] = self.path
+        return direct_to_simplate(request, *args, **kwargs)
+
