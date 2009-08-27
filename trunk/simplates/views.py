@@ -244,7 +244,7 @@ def direct_to_simplate(request, *args, **params):
         def compute_fspath(root):
             return os.path.join(root, simplate_path)
     else:
-        path_info = request.environ['PATH_INFO']
+        path_info = request.META['PATH_INFO']
         def compute_fspath(root):
             fspath = util.translate(root, path_info)
             fspath = util.find_default(settings.SIMPLATE_DEFAULTS, fspath)
